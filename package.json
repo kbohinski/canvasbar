@@ -1,0 +1,19 @@
+{
+  "name": "Canvasbar",
+  "version": "1.0.0",
+  "description": "Displays useful Canvas LMS info in your menubar.",
+  "main": "app.js",
+  "dependencies": {
+    "auto-launch": "latest",
+    "menubar": "latest"
+  },
+  "devDependencies": {
+    "electron-prebuilt": "latest"
+  },
+  "scripts": {
+    "test": ""
+  },
+  "repository": "https://github.com/kbohinski/canvasbar",
+  "author": "https://github.com/kbohinski",
+  "license": "MIT"
+}

@@ -1,0 +1,30 @@
+<html>
+<head>
+    <title>About Canvasbar</title>
+</head>
+<body>
+<div id="Canvasbar">
+    <span>Canvasbar<span id="version"></span></span>
+</div>
+<div id="author">by Kevin Bohinski</div>
+<br>
+<a href="#" onclick="openExternal('https://github.com/kbohinski/Canvasbar/');">View Canvasbar on GitHub</a>
+<br>
+<a href="#" onclick="openExternal('https://github.com/tma02/baritone/');">Forked from baritone</a>
+<br>
+<div id="attribution">
+    Canvasbar is made possible by the following open source projects:<br>
+    <a href="#" onclick="openExternal('http://electron.atom.io/');">Electron<span id="electron-version"></span></a><br>
+    <a href="#" onclick="openExternal('https://github.com/Teamwork/node-auto-launch');">node-auto-launch</a><br>
+    <a href="#" onclick="openExternal('https://github.com/maxogden/menubar');">menubar</a><br><br>
+</div>
+</body>
+<script type="text/javascript">
+  let shell = require('electron').shell
+  const openExternal = (url) => {
+    shell.openExternal(url)
+  }
+  document.getElementById('version').innerHTML = ' ' + require('./package.json').version;
+  document.getElementById('electron-version').innerHTML = ' v' + process.versions.electron;
+</script>
+</html>
