@@ -52,7 +52,7 @@ const contextMenu = Menu.buildFromTemplate([
       mb.window.openDevTools()
     }
   },
-    {
+  {
     label: 'Quit Canvasbar',
     click: () => {
       mb.app.quit()
