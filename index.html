@@ -20,8 +20,15 @@
     <link rel="stylesheet" href="InstructureIcons-Line.css"/>
 </head>
 <body>
-<div id="body" style="margin: .5em;">
-    <h3>Please enter your school's canvas url:</h3>
+<div id="body" style="margin: .5em; visible: hidden;">
+    <h1>Please Read!</h1>
+    <h2>First time setup</h2>
+    <p>We need to know how your school talks to Canvas.</p>
+    <p>We also need your permission to talk to Canvas.</p>
+    <p>On the next page please check 'Stay signed in'!</p>
+    <p>After you see your classes start to load<br> please close and reopen this window.</p>
+
+    <h3 style="margin-top: 3em;">Please enter your school's Canvas url:</h3>
     <p><i>TCNJ's is provided as an example...</i></p>
     <form>
         <input id="url" type="text" value="tcnj.instructure.com">
@@ -33,12 +40,14 @@
 </div>
 </body>
 <script>
+  let body = document.getElementById('body')
+  body.style.visibility = 'hidden'
+
   let shell = require('electron').shell
   const openExternal = (url) => {
     shell.openExternal(url)
   }
   let ipc = require('electron').ipcRenderer
-  let body = document.getElementById('body')
   let baseUrl = ''
 
   const loadCanvas = (url) => {
@@ -46,34 +55,29 @@
     xhr.open('GET', url, true)
     xhr.onload = () => {
       if (xhr.status >= 200 && xhr.status < 400) {
-        //let page = r.split('<body>')[1].split('</body>')[0]
         body.innerHTML = getDOM(xhr.response)
+        body.style.visibility = 'visible'
         fixLinks()
       }
     }
     xhr.send()
   }
 
-  ipc.on('loadPage', (e, data) => {
-    console.log('client -- got page info')
-    ipc.send('log', 'client -- got page info')
-    baseUrl = data.split('dashboard-sidebar')[0]
-    loadCanvas(data)
-  })
-
   document.getElementById('login-submit').addEventListener('click', (e) => {
     e.preventDefault()
     const school = document.getElementById('url').value
     const toLoad = 'https://' + school.trim() + '/dashboard-sidebar'
     baseUrl = 'https://' + school.trim() + '/'
-    ipc.send('schoolUrl', toLoad)
     document.getElementById('loading').style.visibility = 'visible'
-    loadCanvas(toLoad)
+    ipc.send('schoolUrl', toLoad)
+    window.location.href = baseUrl
   })
 
   if (window.location.href.split('#')[1] !== '') {
     baseUrl = window.location.href.split('#')[1].split('dashboard-sidebar')[0]
     loadCanvas(window.location.href.split('#')[1])
+  } else {
+    body.style.visibility = 'visible'
   }
 
   function getDOM (content) {
@@ -84,7 +88,6 @@
     let links = document.getElementsByTagName('a')
     for (let i = 0; i < links.length; i++) {
       links[i].addEventListener('click', (e) => {
-        console.log('clicked!', e.target)
         e.preventDefault()
         openExternal(baseUrl + e.target.href.split('file://')[1]);
       })

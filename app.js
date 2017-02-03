@@ -68,6 +68,7 @@ const openAbout = () => {
 
 mb.on('ready', () => {
   console.log('server -- launching...')
+  console.log('server -- userData dir', mb.app.getPath('userData'))
   mb.tray.on('right-click', () => {
     mb.tray.popUpContextMenu(contextMenu)
   })
@@ -79,8 +80,8 @@ mb.on('after-create-window', () => {
 })
 
 mb.on('show', () => {
-  mb.window.send('loadPage', localData.schoolUrl)
-  console.log('server -- sending page info...')
+  mb.window.loadURL('file://' + __dirname + '/index.html#' + localData.schoolUrl)
+  console.log('server -- requesting client refresh...')
 })
 
 ipcMain.on('schoolUrl', (e, data) => {
