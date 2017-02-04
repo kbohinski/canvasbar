@@ -1,7 +1,7 @@
 # canvasbar
 Puts useful Canvas LMS info in your menubar!
 
-![Screenshot](https://raw.githubusercontent.com/kbohinski/canvasbar/master/screenshot.png)
+![Screenshot](https://raw.githubusercontent.com/kbohinski/canvasbar/master/screenshot.png =250x)
 
 ##Installation Instructions (for now):
 ###Normal:
