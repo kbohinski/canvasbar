@@ -19,13 +19,13 @@
 
     <link rel="stylesheet" href="InstructureIcons-Line.css"/>
     <style>
-      body, #body, #right-side {
-        min-width: 200px;
-        position: absolute;
-        margin-right: 0px;
-        padding-right: 0px;
-        width: 98%;
-      }
+        body, #body, #right-side {
+            min-width: 200px;
+            position: absolute;
+            margin-right: 0px;
+            padding-right: 0px;
+            width: 98%;
+        }
     </style>
 </head>
 <body style="min-width: 200px !important;">
@@ -66,6 +66,27 @@
       if (xhr.status >= 200 && xhr.status < 400) {
         body.innerHTML = getDOM(xhr.response)
         body.style.visibility = 'visible'
+        appendGrades()
+      }
+    }
+    xhr.send()
+  }
+
+  const appendGrades = () => {
+    let xhr = new XMLHttpRequest()
+    xhr.open('GET', baseUrl + 'grades', true)
+    xhr.onload = () => {
+      if (xhr.status >= 200 && xhr.status < 400) {
+        let bottom = document.getElementsByClassName('button-sidebar-wide')[0]
+        let gradesHtml = xhr.response.split('<table class="course_details student_grades">')[1].split('</table>')[0].split('<tr>')
+        let total = ''
+        const end = '</strong></p></div><div class="clear"></div></a><div class="clear"></div></li>'
+        const start = '<li style="margin-top: .75em;" class="event"><div class="event-details"><p>'
+        for (let i = 1; i < gradesHtml.length; i++) {
+          console.log(i, gradesHtml[i])
+          total += (start + gradesHtml[i].split('<td class="course">')[1].split('</td>')[0].trim() + '</p><p><strong>' + gradesHtml[i].split('<td class="percent">')[1].split('</td>')[0].trim() + end)
+        }
+        bottom.outerHTML = wrapGrades(total)
         fixLinks()
       }
     }
@@ -89,11 +110,11 @@
     body.style.visibility = 'visible'
   }
 
-  function getDOM (content) {
-    return '<aside id="right-side" role="complementary" style="opacity: 1; display: block;">' + content + '</aside>'
+  const getDOM = (content) => {
+    return '<div id="right-side" role="complementary" style="opacity: 1; display: block;">' + content + '</div>'
   }
 
-  function fixLinks () {
+  const fixLinks = () => {
     let links = document.getElementsByTagName('a')
     for (let i = 0; i < links.length; i++) {
       links[i].addEventListener('click', (e) => {
@@ -102,6 +123,13 @@
       })
       links[i].href = '#'
     }
+  }
+
+  const wrapGrades = (grades) => {
+    const first = '<div class="events_list recent_feedback"><h2>Grades</h2><ul class="right-side-list events">'
+    const last = '</ul></div>'
+
+    return (first + grades + last)
   }
 </script>
 </html>
