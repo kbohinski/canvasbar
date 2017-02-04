@@ -4,6 +4,13 @@ Puts useful Canvas LMS info in your menubar!
 ![Screenshot](https://raw.githubusercontent.com/kbohinski/canvasbar/master/screenshot.png)
 
 ##Installation Instructions (for now):
+###Normal:
+* Download [here](https://github.com/kbohinski/canvasbar/releases/)...
+* Extract files, and move `Canvasbar.app` to `/Applications/`...
+* Open `Canvasbar.app`
+* 🎉
+
+###Dev:
 * `git clone https://github.com/kbohinski/canvasbar`
 * `cd canvasbar`
 * `npm install`
