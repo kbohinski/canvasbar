@@ -83,7 +83,6 @@
         const end = '</strong></p></div><div class="clear"></div></a><div class="clear"></div></li>'
         const start = '<li style="margin-top: .75em;" class="event"><div class="event-details"><p>'
         for (let i = 1; i < gradesHtml.length; i++) {
-          console.log(i, gradesHtml[i])
           total += (start + gradesHtml[i].split('<td class="course">')[1].split('</td>')[0].trim() + '</p><p><strong>' + gradesHtml[i].split('<td class="percent">')[1].split('</td>')[0].trim() + end)
         }
         bottom.outerHTML = wrapGrades(total)
