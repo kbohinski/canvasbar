@@ -5,13 +5,18 @@
   "main": "app.js",
   "dependencies": {
     "auto-launch": "latest",
+    "electron-json-storage": "^3.0.1",
     "menubar": "latest"
   },
   "devDependencies": {
+    "electron-installer-dmg": "^0.2.0",
     "electron-prebuilt": "latest"
   },
   "scripts": {
-    "test": ""
+    "package-mac": "electron-packager . --overwrite --asar=true --platform=darwin --arch=x64 --prune=true --out=releases",
+    "package-win": "electron-packager . --overwrite --asar=true --platform=win32 --arch=ia32 --prune=true --out=releases --version-string.CompanyName='KB' --version-string.FileDescription='KB' --version-string.ProductName='Canvasbar'",
+    "package-lin": "electron-packager . --overwrite --asar=true --platform=linux --arch=x64 --prune=true --out=releases",
+    "create-installer-mac": "electron-installer-dmg ./releases/Canvasbar-darwin-x64/ Canvasbar.app canvasbar-app --out=releases --overwrite"
   },
   "repository": "https://github.com/kbohinski/canvasbar",
   "author": "https://github.com/kbohinski",

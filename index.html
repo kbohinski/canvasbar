@@ -35,7 +35,7 @@
     <p>We need to know how your school talks to Canvas.</p>
     <p>We also need your permission to talk to Canvas.</p>
     <p>On the next page please check 'Stay signed in'!</p>
-    <p>After you see your classes start to load<br> please close and reopen this window.</p>
+    <p>After you see your grades start to load<br> please close and reopen this window.</p>
 
     <h3 style="margin-top: 3em;">Please enter your school's Canvas url:</h3>
     <p><i>TCNJ's is provided as an example...</i></p>
@@ -99,7 +99,7 @@
     baseUrl = 'https://' + school.trim() + '/'
     document.getElementById('loading').style.visibility = 'visible'
     ipc.send('schoolUrl', toLoad)
-    window.location.href = baseUrl
+    window.location.href = baseUrl + '/grades'
   })
 
   if (window.location.href.split('#')[1] !== '') {

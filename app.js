@@ -4,8 +4,7 @@ const menubar = require('menubar')
 const electron = require('electron')
 const AutoLaunch = require('auto-launch')
 const ipcMain = require('electron').ipcMain
-const fs = require('fs')
-let localData = require('./localData.json')
+const storage = require('electron-json-storage')
 
 const Menu = electron.Menu
 const BrowserWindow = electron.BrowserWindow
@@ -73,29 +72,40 @@ const openAbout = () => {
 }
 
 mb.on('ready', () => {
-  console.log('server -- launching...')
-  console.log('server -- userData dir', mb.app.getPath('userData'))
   mb.tray.on('right-click', () => {
     mb.tray.popUpContextMenu(contextMenu)
   })
 })
 
 mb.on('after-create-window', () => {
-  mb.window.loadURL('file://' + __dirname + '/index.html#' + localData.schoolUrl)
+  storage.has('schoolUrl', (error, hasKey) => {
+    if (hasKey) {
+      storage.get('schoolUrl', (error, data) => {
+        mb.window.loadURL('file://' + __dirname + '/index.html#' + data)
+      })
+    } else {
+      mb.window.loadURL('file://' + __dirname + '/index.html#')
+    }
+  })
   // mb.window.openDevTools()
 })
 
 mb.on('show', () => {
-  mb.window.loadURL('file://' + __dirname + '/index.html#' + localData.schoolUrl)
-  console.log('server -- requesting client refresh...')
+  storage.has('schoolUrl', (error, hasKey) => {
+    if (hasKey) {
+      storage.get('schoolUrl', (error, data) => {
+        mb.window.loadURL('file://' + __dirname + '/index.html#' + data)
+      })
+    } else {
+      mb.window.loadURL('file://' + __dirname + '/index.html#')
+    }
+  })
 })
 
 ipcMain.on('schoolUrl', (e, data) => {
-  console.log('server -- saving url...', data)
-  localData.schoolUrl = data
-  fs.writeFileSync('./localData.json', JSON.stringify(localData))
+  storage.set('schoolUrl', data)
 })
 
 ipcMain.on('log', (e, data) => {
-  console.log(data)
+  // console.log(data)
 })
