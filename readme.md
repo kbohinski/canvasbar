@@ -3,16 +3,15 @@ Puts useful Canvas LMS info in your menubar!
 
 ![Screenshot](https://raw.githubusercontent.com/kbohinski/canvasbar/master/screenshot.png)
 
-##Installation Instructions (for now):
-###Normal:
+##Installation Instructions:
+###Mac:
 * Download [here](https://github.com/kbohinski/canvasbar/releases/)...
-
-####Mac:
 * Extract files, and move `Canvasbar.app` to `/Applications/`...
 * Open `Canvasbar.app`
 * 🎉
 
-####Windows:
+###Windows:
+* Download [here](https://github.com/kbohinski/canvasbar/releases/)...
 * Extract folder into `C:\Program Files\`
 * Open `Canvasbar.exe`
 * 🎉
